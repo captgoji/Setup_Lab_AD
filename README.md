@@ -35,6 +35,9 @@ Setup_Lab/
     ├── tasks.json            # Tâches planifiées
     ├── GPO_config.json       # (optionnel) Config GPOs de sécurité
     └── GPO/                  # (optionnel) Backups GPOs au format {GUID}
+        ├── {GUID}
+        ├── {GUID}
+        └── ...
 ```
 
 ---
