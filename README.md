@@ -218,10 +218,3 @@ Toutes les sorties sont capturées via `Start-Transcript` dès le démarrage du 
 Ce framework est largement inspiré du projet **[Sec_AD](https://github.com/GuyGuy-59/Sec_AD)** de [GuyGuy-59](https://github.com/GuyGuy-59), notamment pour la gestion des GPOs de sécurité par backups `{GUID}`, la détection du niveau fonctionnel et le mapping par tiers.
 
 Un grand merci à **GuyGuy-59** pour avoir autorisé l'utilisation de son travail et pour la qualité de son framework.
-
-
----
-
-## Licence
-
-MIT
