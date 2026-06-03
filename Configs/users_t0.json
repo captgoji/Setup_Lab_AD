@@ -1,0 +1,47 @@
+[
+  {
+    "SamAccountName":       "adm_dupont",
+    "GivenName":            "Admin",
+    "Surname":              "Dupont",
+    "Description":          "Compte admin SI - Jean Dupont",
+    "Enabled":              true,
+    "PasswordNeverExpires": true,
+    "PrivilegedGroups":     [ "Domain Admins", "Schema Admins", "GRP_Admins_SI" ]
+  },
+  {
+    "SamAccountName":       "adm_martin",
+    "GivenName":            "Admin",
+    "Surname":              "Martin",
+    "Description":          "Compte admin SI - Sophie Martin",
+    "Enabled":              true,
+    "PasswordNeverExpires": true,
+    "PrivilegedGroups":     [ "Domain Admins", "GRP_Admins_SI" ]
+  },
+  {
+    "SamAccountName":       "adm_backup",
+    "GivenName":            "Admin",
+    "Surname":              "Backup",
+    "Description":          "Compte admin backup/restauration",
+    "Enabled":              true,
+    "PasswordNeverExpires": true,
+    "PrivilegedGroups":     [ "Backup Operators", "GRP_Admins_SI" ]
+  },
+  {
+    "SamAccountName":       "svc_deploy",
+    "GivenName":            "Svc",
+    "Surname":              "Deploy",
+    "Description":          "Compte de deploiement SCCM - RISQUE : membre Domain Admins",
+    "Enabled":              true,
+    "PasswordNeverExpires": true,
+    "PrivilegedGroups":     [ "Domain Admins" ]
+  },
+  {
+    "SamAccountName":       "adm_old_svc",
+    "GivenName":            "Old",
+    "Surname":              "Service",
+    "Description":          "Ancien compte admin - desactive",
+    "Enabled":              false,
+    "PasswordNeverExpires": true,
+    "PrivilegedGroups":     [ "Domain Admins" ]
+  }
+]

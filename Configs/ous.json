@@ -1,0 +1,16 @@
+[
+  { "Name": "NETOPTIMA",    "Parent": "",                        "Description": "Racine entreprise",           "GPOTier": null    },
+  { "Name": "Tier0",        "Parent": "NETOPTIMA",               "Description": "Comptes privilegies Tier 0",  "GPOTier": "Tier0" },
+  { "Name": "Utilisateurs", "Parent": "NETOPTIMA",               "Description": "Comptes utilisateurs",        "GPOTier": null    },
+  { "Name": "Groupes",      "Parent": "NETOPTIMA",               "Description": "Groupes de securite",         "GPOTier": null    },
+  { "Name": "Serveurs",     "Parent": "NETOPTIMA",               "Description": "Comptes machines serveurs",   "GPOTier": "Tier1" },
+  { "Name": "Postes",       "Parent": "NETOPTIMA",               "Description": "Comptes machines postes",     "GPOTier": "Tier2" },
+  { "Name": "Services",     "Parent": "NETOPTIMA",               "Description": "Comptes de service",          "GPOTier": null    },
+  { "Name": "Direction",    "Parent": "Utilisateurs,NETOPTIMA",  "Description": "Direction generale",          "GPOTier": null    },
+  { "Name": "IT",           "Parent": "Utilisateurs,NETOPTIMA",  "Description": "Equipe informatique",         "GPOTier": null    },
+  { "Name": "RH",           "Parent": "Utilisateurs,NETOPTIMA",  "Description": "Ressources humaines",         "GPOTier": null    },
+  { "Name": "Comptabilite", "Parent": "Utilisateurs,NETOPTIMA",  "Description": "Comptabilite et finance",     "GPOTier": null    },
+  { "Name": "Commercial",   "Parent": "Utilisateurs,NETOPTIMA",  "Description": "Equipe commerciale",          "GPOTier": null    },
+  { "Name": "HyperV",       "Parent": "Serveurs,NETOPTIMA",      "Description": "Hyperviseurs Hyper-V",        "GPOTier": null    },
+  { "Name": "VMs",          "Parent": "Serveurs,NETOPTIMA",      "Description": "Machines virtuelles",         "GPOTier": null    }
+]

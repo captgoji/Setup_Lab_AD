@@ -1,0 +1,67 @@
+[
+  {
+    "Path":       "C:\\Partages\\RH",
+    "ShareName":  "RH",
+    "SubFolders": [ "Archives", "Documents", "Contrats" ],
+    "ACLs": [
+      { "Group": "GRP_Partage_RH", "Rights": "Modify" },
+      { "Group": "GRP_Direction",  "Rights": "ReadAndExecute" },
+      { "Group": "Domain Admins",  "Rights": "FullControl" }
+    ],
+    "BrokenInheritance": null
+  },
+  {
+    "Path":       "C:\\Partages\\Comptabilite",
+    "ShareName":  "Comptabilite",
+    "SubFolders": [ "Archives", "Factures", "Bilans" ],
+    "ACLs": [
+      { "Group": "GRP_Partage_Compta", "Rights": "Modify" },
+      { "Group": "GRP_Direction",      "Rights": "ReadAndExecute" },
+      { "Group": "Domain Admins",      "Rights": "FullControl" }
+    ],
+    "BrokenInheritance": null
+  },
+  {
+    "Path":       "C:\\Partages\\IT",
+    "ShareName":  "IT",
+    "SubFolders": [ "Scripts", "Outils", "Documentation", "Logs" ],
+    "ACLs": [
+      { "Group": "GRP_IT",        "Rights": "FullControl" },
+      { "Group": "Domain Admins", "Rights": "FullControl" }
+    ],
+    "BrokenInheritance": {
+      "SubFolder": "Logs",
+      "ACLs": [
+        { "Group": "GRP_Admins_SI", "Rights": "FullControl" },
+        { "Group": "GRP_IT",        "Rights": "ReadAndExecute" }
+      ]
+    }
+  },
+  {
+    "Path":       "C:\\Partages\\Direction",
+    "ShareName":  "Direction",
+    "SubFolders": [ "Archives", "Rapports", "Strategies" ],
+    "ACLs": [
+      { "Group": "GRP_Direction", "Rights": "Modify" },
+      { "Group": "Domain Admins", "Rights": "FullControl" }
+    ],
+    "BrokenInheritance": {
+      "SubFolder": "Strategies",
+      "ACLs": [
+        { "Group": "GRP_Direction", "Rights": "FullControl" },
+        { "Group": "Domain Admins", "Rights": "FullControl" }
+      ]
+    }
+  },
+  {
+    "Path":       "C:\\Partages\\Commun",
+    "ShareName":  "Commun",
+    "SubFolders": [ "Formulaires", "Procedures" ],
+    "ACLs": [
+      { "Group": "Domain Users",  "Rights": "ReadAndExecute" },
+      { "Group": "GRP_IT",        "Rights": "Modify" },
+      { "Group": "Domain Admins", "Rights": "FullControl" }
+    ],
+    "BrokenInheritance": null
+  }
+]

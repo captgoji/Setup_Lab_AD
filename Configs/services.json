@@ -1,0 +1,26 @@
+[
+  {
+    "Name":        "AuditLab_Monitoring",
+    "DisplayName": "Audit Lab - Service Monitoring",
+    "Description": "Service de supervision reseau (test framework audit)",
+    "Account":     "svc_monitoring"
+  },
+  {
+    "Name":        "AuditLab_Backup",
+    "DisplayName": "Audit Lab - Service Backup",
+    "Description": "Service de sauvegarde nocturne (test framework audit)",
+    "Account":     "svc_backup"
+  },
+  {
+    "Name":        "AuditLab_SQL",
+    "DisplayName": "Audit Lab - Service SQL",
+    "Description": "Service base de donnees applicative (test framework audit)",
+    "Account":     "svc_sql"
+  },
+  {
+    "Name":        "AuditLab_Antivirus",
+    "DisplayName": "Audit Lab - Service Antivirus",
+    "Description": "Service protection antivirus (test framework audit)",
+    "Account":     "svc_antivirus"
+  }
+]

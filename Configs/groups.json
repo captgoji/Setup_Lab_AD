@@ -1,0 +1,12 @@
+[
+  { "Name": "GRP_Admins_SI",      "Scope": "Global", "Category": "Security", "Description": "Administrateurs SI" },
+  { "Name": "GRP_Admins_Domaine", "Scope": "Global", "Category": "Security", "Description": "Admins domaine deleguees" },
+  { "Name": "GRP_Direction",      "Scope": "Global", "Category": "Security", "Description": "Membres de la direction" },
+  { "Name": "GRP_IT",             "Scope": "Global", "Category": "Security", "Description": "Equipe IT" },
+  { "Name": "GRP_RH",             "Scope": "Global", "Category": "Security", "Description": "Equipe RH" },
+  { "Name": "GRP_Comptabilite",   "Scope": "Global", "Category": "Security", "Description": "Equipe comptabilite" },
+  { "Name": "GRP_Commercial",     "Scope": "Global", "Category": "Security", "Description": "Equipe commerciale" },
+  { "Name": "GRP_VPN",            "Scope": "Global", "Category": "Security", "Description": "Acces VPN" },
+  { "Name": "GRP_Partage_RH",     "Scope": "Global", "Category": "Security", "Description": "Acces partage RH" },
+  { "Name": "GRP_Partage_Compta", "Scope": "Global", "Category": "Security", "Description": "Acces partage comptabilite" }
+]

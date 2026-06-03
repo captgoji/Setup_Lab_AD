@@ -1,0 +1,6 @@
+[
+  { "SamAccountName": "svc_backup",    "Description": "Compte service backup Veeam" },
+  { "SamAccountName": "svc_monitoring","Description": "Compte service supervision PRTG" },
+  { "SamAccountName": "svc_sql",       "Description": "Compte service SQL Server" },
+  { "SamAccountName": "svc_antivirus", "Description": "Compte service antivirus" }
+]

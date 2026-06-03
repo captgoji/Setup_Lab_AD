@@ -1,0 +1,20 @@
+[
+  {
+    "Name":        "Audit_Backup_Nightly",
+    "Description": "Tache de backup nocturne",
+    "Account":     "svc_backup",
+    "TriggerTime": "03:00"
+  },
+  {
+    "Name":        "Audit_Monitoring_Check",
+    "Description": "Verification supervision",
+    "Account":     "svc_monitoring",
+    "TriggerTime": "04:00"
+  },
+  {
+    "Name":        "Audit_Deploy_Packages",
+    "Description": "Deploiement de paquets SCCM - RISQUE : compte T0 dans tache planifiee",
+    "Account":     "adm_dupont",
+    "TriggerTime": "02:00"
+  }
+]
