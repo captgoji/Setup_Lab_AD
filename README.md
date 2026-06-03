@@ -65,17 +65,6 @@ Le script s'exécute en deux phases séparées par un redémarrage automatique.
     -SafeModePass    "P@ssw0rd123!"  `   # Mot de passe DSRM
     -DefaultUserPass "Azerty123!"        # Mot de passe des comptes de test
 ```
-
-### Nettoyage manuel (optionnel)
-
-```powershell
-# Charger les fonctions
-. .\Setup_Lab_AD.ps1
-
-# Supprimer la tâche planifiée et le flag
-Invoke-Cleanup
-```
-
 ---
 
 ## Configuration
