@@ -200,8 +200,8 @@ Toutes les sorties sont capturées via `Start-Transcript` dès le démarrage du 
 | OS | Statut |
 |---|---|
 | Windows Server 2022 | ✅ Testé |
-| Windows Server 2019 | ✅ Compatible |
-| Windows Server 2016 | ✅ Compatible |
+| Windows Server 2019 | ✅ Testé |
+| Windows Server 2016 | ✅ Testé |
 
 ---
 
