@@ -1,0 +1,528 @@
+{
+  "_comment": "Active la journalisation que Windows Server ne fait pas nativement. Mettre \"Apply\": false sur une entree pour la desactiver.",
+  "Enabled": true,
+  "Registry": [
+    {
+      "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\PowerShell\\ScriptBlockLogging",
+      "Name": "EnableScriptBlockLogging",
+      "Type": "DWord",
+      "Value": 1,
+      "Why": "4104 - contenu des scripts PowerShell"
+    },
+    {
+      "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\PowerShell\\ModuleLogging",
+      "Name": "EnableModuleLogging",
+      "Type": "DWord",
+      "Value": 1,
+      "Why": "4103 - pipeline PowerShell"
+    },
+    {
+      "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\PowerShell\\ModuleLogging\\ModuleNames",
+      "Name": "*",
+      "Type": "String",
+      "Value": "*",
+      "Why": "tous les modules"
+    },
+    {
+      "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\PowerShell\\Transcription",
+      "Name": "EnableTranscripting",
+      "Type": "DWord",
+      "Value": 1,
+      "Why": "transcription des sessions PowerShell"
+    },
+    {
+      "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\PowerShell\\Transcription",
+      "Name": "EnableInvocationHeader",
+      "Type": "DWord",
+      "Value": 1,
+      "Why": "horodatage de chaque commande"
+    },
+    {
+      "Path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\PowerShell\\Transcription",
+      "Name": "OutputDirectory",
+      "Type": "String",
+      "Value": "C:\\Logs\\PSTranscripts",
+      "EnsureDirectory": true,
+      "Why": "dossier des transcripts"
+    },
+    {
+      "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\Audit",
+      "Name": "ProcessCreationIncludeCmdLine_Enabled",
+      "Type": "DWord",
+      "Value": 1,
+      "Why": "ligne de commande dans 4688"
+    },
+    {
+      "Path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa\\MSV1_0",
+      "Name": "AuditReceivingNTLMTraffic",
+      "Type": "DWord",
+      "Value": 2,
+      "Why": "8003 - NTLM entrant (audit seul)"
+    },
+    {
+      "Path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa\\MSV1_0",
+      "Name": "RestrictSendingNTLMTraffic",
+      "Type": "DWord",
+      "Value": 1,
+      "Why": "8001 - NTLM sortant (1 = audit, PAS blocage)"
+    },
+    {
+      "Path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Netlogon\\Parameters",
+      "Name": "AuditNTLMInDomain",
+      "Type": "DWord",
+      "Value": 7,
+      "Why": "8004 - authentifications NTLM du domaine (DC)"
+    },
+    {
+      "Path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\NTDS\\Diagnostics",
+      "Name": "16 LDAP Interface Events",
+      "Type": "DWord",
+      "Value": 2,
+      "Why": "2889 - client et compte de chaque bind LDAP non signe"
+    },
+    {
+      "Path": "HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Image File Execution Options\\LSASS.exe",
+      "Name": "AuditLevel",
+      "Type": "DWord",
+      "Value": 8,
+      "Why": "3065/3066 - modules qui seraient bloques par LSA Protection"
+    },
+    {
+      "Apply": false,
+      "Path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\NTDS\\Diagnostics",
+      "Name": "15 Field Engineering",
+      "Type": "DWord",
+      "Value": 5,
+      "Why": "1644 - requetes LDAP couteuses (enumeration BloodHound) - TRES verbeux"
+    },
+    {
+      "Apply": false,
+      "Path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa\\Kerberos\\Parameters",
+      "Name": "LogLevel",
+      "Type": "DWord",
+      "Value": 1,
+      "Why": "erreurs Kerberos dans le journal System - verbeux"
+    },
+    {
+      "Apply": false,
+      "Path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\SCHANNEL",
+      "Name": "EventLogging",
+      "Type": "DWord",
+      "Value": 7,
+      "Why": "36880 - chaque negociation TLS - verbeux"
+    }
+  ],
+  "AdvancedAudit": {
+    "_comment": "Sous-categories identifiees par GUID (independant de la langue). Les noms sont informatifs.",
+    "ForceSubcategoryOverride": true,
+    "Subcategories": [
+      {
+        "Name": "Credential Validation",
+        "Guid": "{0CCE923F-69AE-11D9-BED3-505054503030}",
+        "Success": true,
+        "Failure": true,
+        "Why": "4776 - validation NTLM des identifiants"
+      },
+      {
+        "Name": "Kerberos Authentication Service",
+        "Guid": "{0CCE9242-69AE-11D9-BED3-505054503030}",
+        "Success": true,
+        "Failure": true,
+        "Why": "4768/4771 - TGT, AS-REP roasting, password spray"
+      },
+      {
+        "Name": "Kerberos Service Ticket Operations",
+        "Guid": "{0CCE9240-69AE-11D9-BED3-505054503030}",
+        "Success": true,
+        "Failure": true,
+        "Why": "4769 - TGS, Kerberoasting"
+      },
+      {
+        "Name": "Other Account Logon Events",
+        "Guid": "{0CCE9241-69AE-11D9-BED3-505054503030}",
+        "Success": true,
+        "Failure": true,
+        "Why": "evenements d'ouverture de compte divers"
+      },
+      {
+        "Name": "User Account Management",
+        "Guid": "{0CCE9235-69AE-11D9-BED3-505054503030}",
+        "Success": true,
+        "Failure": true,
+        "Why": "4720/4722/4738 - creation/modif comptes"
+      },
+      {
+        "Name": "Computer Account Management",
+        "Guid": "{0CCE9236-69AE-11D9-BED3-505054503030}",
+        "Success": true,
+        "Failure": true,
+        "Why": "4741/4742 - comptes machines (RBCD, noPac)"
+      },
+      {
+        "Name": "Security Group Management",
+        "Guid": "{0CCE9237-69AE-11D9-BED3-505054503030}",
+        "Success": true,
+        "Failure": true,
+        "Why": "4728/4732/4756 - ajouts aux groupes"
+      },
+      {
+        "Name": "Distribution Group Management",
+        "Guid": "{0CCE9238-69AE-11D9-BED3-505054503030}",
+        "Success": true,
+        "Failure": false,
+        "Why": "4749+ - groupes de distribution"
+      },
+      {
+        "Name": "Other Account Management Events",
+        "Guid": "{0CCE923A-69AE-11D9-BED3-505054503030}",
+        "Success": true,
+        "Failure": true,
+        "Why": "4782 - acces au hash de mot de passe"
+      },
+      {
+        "Name": "Directory Service Access",
+        "Guid": "{0CCE923B-69AE-11D9-BED3-505054503030}",
+        "Success": true,
+        "Failure": true,
+        "Why": "4662 - acces objets AD (DCSync avec SACL)"
+      },
+      {
+        "Name": "Directory Service Changes",
+        "Guid": "{0CCE923C-69AE-11D9-BED3-505054503030}",
+        "Success": true,
+        "Failure": false,
+        "Why": "5136/5137/5141 - modifications AD (non actif par defaut)"
+      },
+      {
+        "Name": "Process Creation",
+        "Guid": "{0CCE922B-69AE-11D9-BED3-505054503030}",
+        "Success": true,
+        "Failure": false,
+        "Why": "4688 - creation de processus (non actif par defaut)"
+      },
+      {
+        "Name": "DPAPI Activity",
+        "Guid": "{0CCE922D-69AE-11D9-BED3-505054503030}",
+        "Success": true,
+        "Failure": true,
+        "Why": "4692/4693 - sauvegarde/recuperation cles DPAPI"
+      },
+      {
+        "Name": "Plug and Play Events",
+        "Guid": "{0CCE9248-69AE-11D9-BED3-505054503030}",
+        "Success": true,
+        "Failure": false,
+        "Why": "6416 - peripheriques externes"
+      },
+      {
+        "Name": "Logon",
+        "Guid": "{0CCE9215-69AE-11D9-BED3-505054503030}",
+        "Success": true,
+        "Failure": true,
+        "Why": "4624/4625 - ouvertures de session"
+      },
+      {
+        "Name": "Logoff",
+        "Guid": "{0CCE9216-69AE-11D9-BED3-505054503030}",
+        "Success": true,
+        "Failure": false,
+        "Why": "4634/4647"
+      },
+      {
+        "Name": "Account Lockout",
+        "Guid": "{0CCE9217-69AE-11D9-BED3-505054503030}",
+        "Success": true,
+        "Failure": true,
+        "Why": "4625 (0xC0000234) - verrouillages"
+      },
+      {
+        "Name": "Special Logon",
+        "Guid": "{0CCE921B-69AE-11D9-BED3-505054503030}",
+        "Success": true,
+        "Failure": true,
+        "Why": "4672/4964 - sessions privilegiees"
+      },
+      {
+        "Name": "Other Logon/Logoff Events",
+        "Guid": "{0CCE921C-69AE-11D9-BED3-505054503030}",
+        "Success": true,
+        "Failure": true,
+        "Why": "4778/4779 - RDP reconnect/deconnect"
+      },
+      {
+        "Name": "Group Membership",
+        "Guid": "{0CCE9249-69AE-11D9-BED3-505054503030}",
+        "Success": true,
+        "Failure": false,
+        "Why": "4627 - groupes du jeton a l'ouverture"
+      },
+      {
+        "Name": "File System",
+        "Guid": "{0CCE921D-69AE-11D9-BED3-505054503030}",
+        "Success": true,
+        "Failure": true,
+        "Why": "4663 - acces fichiers (necessite SACL)"
+      },
+      {
+        "Name": "File Share",
+        "Guid": "{0CCE9224-69AE-11D9-BED3-505054503030}",
+        "Success": true,
+        "Failure": true,
+        "Why": "5140 - acces aux partages (non actif par defaut)"
+      },
+      {
+        "Name": "Detailed File Share",
+        "Guid": "{0CCE9244-69AE-11D9-BED3-505054503030}",
+        "Success": false,
+        "Failure": true,
+        "Why": "5145 - echecs d'acces detailles (succes = trop bruyant sur un DC)"
+      },
+      {
+        "Name": "Other Object Access Events",
+        "Guid": "{0CCE9227-69AE-11D9-BED3-505054503030}",
+        "Success": true,
+        "Failure": true,
+        "Why": "4698/4702 - creation/modif taches planifiees"
+      },
+      {
+        "Name": "Removable Storage",
+        "Guid": "{0CCE9245-69AE-11D9-BED3-505054503030}",
+        "Success": true,
+        "Failure": true,
+        "Why": "4663 sur supports amovibles"
+      },
+      {
+        "Name": "Certification Services",
+        "Guid": "{0CCE9221-69AE-11D9-BED3-505054503030}",
+        "Success": true,
+        "Failure": true,
+        "Why": "4886/4887 - ADCS (si installe)"
+      },
+      {
+        "Name": "Audit Policy Change",
+        "Guid": "{0CCE922F-69AE-11D9-BED3-505054503030}",
+        "Success": true,
+        "Failure": true,
+        "Why": "4719 - modification de la politique d'audit"
+      },
+      {
+        "Name": "Authentication Policy Change",
+        "Guid": "{0CCE9230-69AE-11D9-BED3-505054503030}",
+        "Success": true,
+        "Failure": false,
+        "Why": "4706/4713/4716 - trusts, politique Kerberos"
+      },
+      {
+        "Name": "Authorization Policy Change",
+        "Guid": "{0CCE9231-69AE-11D9-BED3-505054503030}",
+        "Success": true,
+        "Failure": false,
+        "Why": "4704/4705 - attribution de droits utilisateur"
+      },
+      {
+        "Name": "MPSSVC Rule-Level Policy Change",
+        "Guid": "{0CCE9232-69AE-11D9-BED3-505054503030}",
+        "Success": true,
+        "Failure": false,
+        "Why": "4946/4947/4948 - regles pare-feu"
+      },
+      {
+        "Name": "Other Policy Change Events",
+        "Guid": "{0CCE9234-69AE-11D9-BED3-505054503030}",
+        "Success": false,
+        "Failure": true,
+        "Why": "echecs de changements de politique"
+      },
+      {
+        "Name": "Sensitive Privilege Use",
+        "Guid": "{0CCE9228-69AE-11D9-BED3-505054503030}",
+        "Success": true,
+        "Failure": true,
+        "Why": "4673/4674 - SeDebug, SeTcb, SeBackup..."
+      },
+      {
+        "Name": "Security State Change",
+        "Guid": "{0CCE9210-69AE-11D9-BED3-505054503030}",
+        "Success": true,
+        "Failure": false,
+        "Why": "4608/4616 - demarrage, changement d'heure"
+      },
+      {
+        "Name": "Security System Extension",
+        "Guid": "{0CCE9211-69AE-11D9-BED3-505054503030}",
+        "Success": true,
+        "Failure": true,
+        "Why": "4697 - installation de service"
+      },
+      {
+        "Name": "System Integrity",
+        "Guid": "{0CCE9212-69AE-11D9-BED3-505054503030}",
+        "Success": true,
+        "Failure": true,
+        "Why": "4612/4615/4618 - integrite du sous-systeme"
+      },
+      {
+        "Name": "Other System Events",
+        "Guid": "{0CCE9214-69AE-11D9-BED3-505054503030}",
+        "Success": true,
+        "Failure": true,
+        "Why": "5024+ - pare-feu, cles"
+      }
+    ]
+  },
+  "EventLogs": [
+    {
+      "Name": "Security",
+      "MaxSizeMB": 1024,
+      "Why": "journal Securite agrandi (defaut trop petit pour l'audit avance)"
+    },
+    {
+      "Name": "Microsoft-Windows-PowerShell/Operational",
+      "MaxSizeMB": 256,
+      "Why": "4103/4104"
+    },
+    {
+      "Name": "Windows PowerShell",
+      "MaxSizeMB": 128,
+      "Why": "400/800 - PowerShell v2 (downgrade)"
+    },
+    {
+      "Name": "Microsoft-Windows-TaskScheduler/Operational",
+      "Enable": true,
+      "MaxSizeMB": 128,
+      "Why": "desactive par defaut - execution des taches"
+    },
+    {
+      "Name": "Microsoft-Windows-NTLM/Operational",
+      "Enable": true,
+      "MaxSizeMB": 128,
+      "Why": "8001-8004 - audit NTLM"
+    },
+    {
+      "Name": "Microsoft-Windows-Kerberos/Operational",
+      "Enable": true,
+      "MaxSizeMB": 64,
+      "Why": "desactive par defaut"
+    },
+    {
+      "Name": "Microsoft-Windows-DNS-Client/Operational",
+      "Enable": true,
+      "MaxSizeMB": 128,
+      "Why": "desactive par defaut - requetes DNS du serveur"
+    },
+    {
+      "Name": "Microsoft-Windows-CAPI2/Operational",
+      "Enable": true,
+      "MaxSizeMB": 64,
+      "Why": "desactive par defaut - certificats"
+    },
+    {
+      "Name": "Microsoft-Windows-DriverFrameworks-UserMode/Operational",
+      "Enable": true,
+      "MaxSizeMB": 32,
+      "Why": "desactive par defaut - USB"
+    },
+    {
+      "Name": "Microsoft-Windows-LSA/Operational",
+      "Enable": true,
+      "MaxSizeMB": 32,
+      "Why": "LSA protection"
+    },
+    {
+      "Name": "Microsoft-Windows-SMBServer/Audit",
+      "Enable": true,
+      "MaxSizeMB": 64,
+      "Why": "3000 - acces SMBv1"
+    },
+    {
+      "Name": "Microsoft-Windows-SMBServer/Security",
+      "Enable": true,
+      "MaxSizeMB": 64,
+      "Why": "echecs de signature/chiffrement"
+    },
+    {
+      "Name": "Directory Service",
+      "MaxSizeMB": 512,
+      "Why": "2889 / 1644"
+    },
+    {
+      "Name": "DFS Replication",
+      "MaxSizeMB": 128,
+      "Why": "DFS-R"
+    },
+    {
+      "Name": "Microsoft-Windows-Sysmon/Operational",
+      "MaxSizeMB": 512,
+      "Why": "si Sysmon installe"
+    },
+    {
+      "Apply": false,
+      "Name": "Microsoft-Windows-DNSServer/Analytical",
+      "Enable": true,
+      "MaxSizeMB": 512,
+      "Why": "chaque requete DNS du serveur - verbeux"
+    }
+  ],
+  "FileSystemSacl": [
+    {
+      "Path": "C:\\Partages",
+      "Principal": "Everyone",
+      "Rights": "Write, Delete, ChangePermissions, TakeOwnership",
+      "Flags": "Success, Failure",
+      "Why": "4663/4670 - modifs et changements d'ACL sur les partages"
+    },
+    {
+      "Path": "C:\\Windows\\SYSVOL\\domain\\Policies",
+      "Principal": "Everyone",
+      "Rights": "Write, Delete, ChangePermissions",
+      "Flags": "Success",
+      "Why": "4663 - modification des fichiers de GPO"
+    }
+  ],
+  "DirectorySacl": [
+    {
+      "Target": "OU={ROOT},{DOMAIN}",
+      "Principal": "Everyone",
+      "Rights": "WriteProperty, CreateChild, DeleteChild, Delete, WriteDacl, WriteOwner",
+      "Flags": "Success",
+      "Inheritance": "All",
+      "Why": "5136/5137/5141 sur l'arborescence du lab"
+    },
+    {
+      "Target": "{DOMAIN}",
+      "Principal": "Everyone",
+      "Rights": "ExtendedRight",
+      "Flags": "Success",
+      "Inheritance": "None",
+      "Why": "4662 - droits etendus sur le domaine (detection DCSync)"
+    },
+    {
+      "Target": "CN=AdminSDHolder,CN=System,{DOMAIN}",
+      "Principal": "Everyone",
+      "Rights": "WriteProperty, WriteDacl, WriteOwner",
+      "Flags": "Success",
+      "Inheritance": "None",
+      "Why": "5136 - persistance via AdminSDHolder"
+    }
+  ],
+  "Smb": {
+    "_comment": "Seuls les parametres supportes par l'OS sont appliques",
+    "AuditSmb1Access": true,
+    "AuditClientDoesNotSupportSigning": true,
+    "AuditClientDoesNotSupportEncryption": true
+  },
+  "Firewall": {
+    "LogBlocked": true,
+    "LogAllowed": false,
+    "MaxSizeKB": 32767
+  },
+  "Netlogon": {
+    "_comment": "netlogon.log : canal securise, Zerologon... verbeux",
+    "DebugLogging": false
+  },
+  "Sysmon": {
+    "_comment": "Installation non interactive (-accepteula -i). Deposer Sysmon64.exe et sysmonconfig.xml dans Modules\\Sysmon\\ (recherche aussi dans Configs\\). Ignore si absent.",
+    "BinaryPath": "Sysmon\\Sysmon64.exe",
+    "ConfigPath": "Sysmon\\sysmonconfig.xml"
+  }
+}

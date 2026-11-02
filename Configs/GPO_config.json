@@ -1,4 +1,83 @@
 {
+    "LabGPOs": {
+        "description": "GPOs du lab : importees depuis Configs\\GPO si un backup du meme nom existe, sinon creees vides. LinkTo accepte les jetons {ROOT} (OU racine) et {DOMAIN} (DN du domaine).",
+        "gpos": [
+            {
+                "Name": "GPO_Securite_Mots_de_passe",
+                "Comment": "Politique de mots de passe domaine",
+                "LinkTo": [
+                    "{DOMAIN}"
+                ],
+                "Enforced": false,
+                "Status": "UserSettingsDisabled"
+            },
+            {
+                "Name": "GPO_Postes_Standard",
+                "Comment": "Configuration standard des postes",
+                "LinkTo": [
+                    "OU=Postes,OU={ROOT},{DOMAIN}"
+                ],
+                "Enforced": false,
+                "Status": "UserSettingsDisabled"
+            },
+            {
+                "Name": "GPO_Serveurs_Hardening",
+                "Comment": "Durcissement des serveurs",
+                "LinkTo": [
+                    "OU=Serveurs,OU={ROOT},{DOMAIN}"
+                ],
+                "Enforced": true,
+                "Status": "UserSettingsDisabled"
+            },
+            {
+                "Name": "GPO_IT_Outils",
+                "Comment": "Outils specifiques equipe IT",
+                "LinkTo": [
+                    "OU=IT,OU=Utilisateurs,OU={ROOT},{DOMAIN}"
+                ],
+                "Enforced": false,
+                "Status": "ComputerSettingsDisabled"
+            },
+            {
+                "Name": "GPO_Restricted_Tier0",
+                "Comment": "Restrictions renforcees comptes Tier 0",
+                "LinkTo": [
+                    "OU=Tier0,OU={ROOT},{DOMAIN}"
+                ],
+                "Enforced": false,
+                "Status": "ComputerSettingsDisabled"
+            },
+            {
+                "Name": "GPO_Fond_Ecran",
+                "Comment": "Fond d'ecran entreprise",
+                "LinkTo": [
+                    "{DOMAIN}"
+                ],
+                "Enforced": false,
+                "Status": "ComputerSettingsDisabled"
+            },
+            {
+                "Name": "GPO_Proxy_Navigation",
+                "Comment": "Proxy navigation web",
+                "LinkTo": [
+                    "OU=Commercial,OU=Utilisateurs,OU={ROOT},{DOMAIN}",
+                    "OU=Direction,OU=Utilisateurs,OU={ROOT},{DOMAIN}"
+                ],
+                "Enforced": false,
+                "Status": "ComputerSettingsDisabled"
+            },
+            {
+                "Name": "GPO_Desactivee_Test",
+                "Comment": "GPO de test desactivee (contenu dangereux)",
+                "LinkTo": [],
+                "Disabled": true
+            }
+        ],
+        "BlockInheritance": [
+            "OU=Tier0,OU={ROOT},{DOMAIN}",
+            "OU=Serveurs,OU={ROOT},{DOMAIN}"
+        ]
+    },
     "GPOs": {
         "Common": {
             "description": "Common GPOs for all functional levels",
@@ -48,7 +127,7 @@
             "description": "GPOs for Windows 2016 and below",
             "gpos": [
                 "LMHASH-Disabled",
-                 "NBT-NS-Disabled"
+                "NBT-NS-Disabled"
             ]
         },
         "Level2025": {
@@ -234,4 +313,4 @@
             ]
         }
     }
-} 
+}

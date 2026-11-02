@@ -1,0 +1,7 @@
+{
+  "Enabled": true,
+  "NamespaceName": "Partages",
+  "RootFolder": "C:\\DFSRoots\\Partages",
+  "Description": "Espace de noms DFS des partages du lab",
+  "EnableABE": true
+}

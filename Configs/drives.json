@@ -1,0 +1,16 @@
+{
+  "_comment": "Lecteurs reseau mappes par GPO (Group Policy Preferences). Via = Dfs (\\\\domaine\\namespace\\dossier) ou Smb (\\\\serveur\\partage). Path permet un chemin libre avec les jetons {SERVER} et {DOMAIN}. Groups = ciblage (membre d'au moins un groupe) ; absent = tous les utilisateurs des OUs liees.",
+  "Enabled": true,
+  "GPOName": "GPO_Lecteurs_Reseau",
+  "LinkTo": [ "OU=Utilisateurs,OU={ROOT},{DOMAIN}" ],
+  "Drives": [
+    { "Letter": "S", "Label": "Commun",       "Share": "Commun",       "Via": "Dfs" },
+    { "Letter": "R", "Label": "RH",           "Share": "RH",           "Via": "Dfs", "Groups": [ "GRP_Partage_RH", "GRP_Direction" ] },
+    { "Letter": "T", "Label": "Comptabilite", "Share": "Comptabilite", "Via": "Dfs", "Groups": [ "GRP_Partage_Compta", "GRP_Direction" ] },
+    { "Letter": "I", "Label": "IT",           "Share": "IT",           "Via": "Dfs", "Groups": [ "GRP_IT" ] },
+    { "Letter": "P", "Label": "Direction",    "Share": "Direction",    "Via": "Smb", "Groups": [ "GRP_Direction" ],
+      "_risk": "acces direct au partage Everyone:Full, contourne le DFS" },
+    { "Letter": "Z", "Label": "Admin DC",     "Path": "\\\\{SERVER}\\C$",                "Groups": [ "GRP_IT" ],
+      "_risk": "lecteur vers le partage administratif du DC" }
+  ]
+}

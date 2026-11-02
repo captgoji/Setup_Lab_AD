@@ -1,67 +1,201 @@
 [
   {
-    "Path":       "C:\\Partages\\RH",
-    "ShareName":  "RH",
-    "SubFolders": [ "Archives", "Documents", "Contrats" ],
-    "ACLs": [
-      { "Group": "GRP_Partage_RH", "Rights": "Modify" },
-      { "Group": "GRP_Direction",  "Rights": "ReadAndExecute" },
-      { "Group": "Domain Admins",  "Rights": "FullControl" }
+    "Path": "C:\\Partages\\RH",
+    "ShareName": "RH",
+    "Description": "Ressources humaines",
+    "SubFolders": [
+      "Archives",
+      "Documents",
+      "Contrats"
     ],
-    "BrokenInheritance": null
+    "DisableRootInheritance": true,
+    "ACLs": [
+      {
+        "Group": "GRP_Partage_RH",
+        "Rights": "Modify"
+      },
+      {
+        "Group": "GRP_Direction",
+        "Rights": "ReadAndExecute"
+      },
+      {
+        "Group": "Domain Admins",
+        "Rights": "FullControl"
+      }
+    ],
+    "BrokenInheritance": null,
+    "SharePermissions": null,
+    "ABE": true,
+    "Dfs": {
+      "Folder": "RH",
+      "VisibleTo": [
+        "GRP_Partage_RH",
+        "GRP_Direction"
+      ]
+    }
   },
   {
-    "Path":       "C:\\Partages\\Comptabilite",
-    "ShareName":  "Comptabilite",
-    "SubFolders": [ "Archives", "Factures", "Bilans" ],
-    "ACLs": [
-      { "Group": "GRP_Partage_Compta", "Rights": "Modify" },
-      { "Group": "GRP_Direction",      "Rights": "ReadAndExecute" },
-      { "Group": "Domain Admins",      "Rights": "FullControl" }
+    "Path": "C:\\Partages\\Comptabilite",
+    "ShareName": "Comptabilite",
+    "Description": "Comptabilite",
+    "SubFolders": [
+      "Archives",
+      "Factures",
+      "Bilans"
     ],
-    "BrokenInheritance": null
+    "DisableRootInheritance": true,
+    "ACLs": [
+      {
+        "Group": "GRP_Partage_Compta",
+        "Rights": "Modify"
+      },
+      {
+        "Group": "GRP_Direction",
+        "Rights": "ReadAndExecute"
+      },
+      {
+        "Group": "Domain Admins",
+        "Rights": "FullControl"
+      }
+    ],
+    "BrokenInheritance": null,
+    "SharePermissions": null,
+    "ABE": false,
+    "Dfs": {
+      "Folder": "Comptabilite",
+      "VisibleTo": [
+        "GRP_Partage_Compta",
+        "GRP_Direction",
+        "GRP_Commercial"
+      ],
+      "_risk": "GRP_Commercial voit le dossier DFS mais n'a aucun droit NTFS (incoherence ABE / NTFS)"
+    }
   },
   {
-    "Path":       "C:\\Partages\\IT",
-    "ShareName":  "IT",
-    "SubFolders": [ "Scripts", "Outils", "Documentation", "Logs" ],
+    "Path": "C:\\Partages\\IT",
+    "ShareName": "IT",
+    "Description": "Equipe IT",
+    "SubFolders": [
+      "Scripts",
+      "Outils",
+      "Documentation",
+      "Logs"
+    ],
+    "DisableRootInheritance": true,
     "ACLs": [
-      { "Group": "GRP_IT",        "Rights": "FullControl" },
-      { "Group": "Domain Admins", "Rights": "FullControl" }
+      {
+        "Group": "GRP_IT",
+        "Rights": "FullControl"
+      },
+      {
+        "Group": "Domain Admins",
+        "Rights": "FullControl"
+      }
     ],
     "BrokenInheritance": {
       "SubFolder": "Logs",
       "ACLs": [
-        { "Group": "GRP_Admins_SI", "Rights": "FullControl" },
-        { "Group": "GRP_IT",        "Rights": "ReadAndExecute" }
+        {
+          "Group": "GRP_Admins_SI",
+          "Rights": "FullControl"
+        },
+        {
+          "Group": "GRP_IT",
+          "Rights": "ReadAndExecute"
+        }
+      ]
+    },
+    "SharePermissions": null,
+    "ABE": true,
+    "Dfs": {
+      "Folder": "IT",
+      "VisibleTo": [
+        "GRP_IT",
+        "GRP_Admins_SI"
       ]
     }
   },
   {
-    "Path":       "C:\\Partages\\Direction",
-    "ShareName":  "Direction",
-    "SubFolders": [ "Archives", "Rapports", "Strategies" ],
+    "Path": "C:\\Partages\\Direction",
+    "ShareName": "Direction",
+    "Description": "Direction",
+    "SubFolders": [
+      "Archives",
+      "Rapports",
+      "Strategies"
+    ],
+    "DisableRootInheritance": true,
     "ACLs": [
-      { "Group": "GRP_Direction", "Rights": "Modify" },
-      { "Group": "Domain Admins", "Rights": "FullControl" }
+      {
+        "Group": "GRP_Direction",
+        "Rights": "Modify"
+      },
+      {
+        "Group": "Domain Admins",
+        "Rights": "FullControl"
+      }
     ],
     "BrokenInheritance": {
       "SubFolder": "Strategies",
       "ACLs": [
-        { "Group": "GRP_Direction", "Rights": "FullControl" },
-        { "Group": "Domain Admins", "Rights": "FullControl" }
+        {
+          "Group": "GRP_Direction",
+          "Rights": "FullControl"
+        },
+        {
+          "Group": "Domain Admins",
+          "Rights": "FullControl"
+        }
       ]
+    },
+    "SharePermissions": [
+      {
+        "Account": "Everyone",
+        "Access": "Full"
+      }
+    ],
+    "_risk": "Partage classique Everyone:Full (seul le NTFS protege)",
+    "ABE": false,
+    "Dfs": {
+      "Folder": "Direction",
+      "ExtraTargets": [
+        {
+          "Path": "\\\\FS-OLD01\\Direction$",
+          "State": "Offline"
+        }
+      ],
+      "_risk": "Pas de VisibleTo -> visible par tous ; cible obsolete vers un serveur inexistant"
     }
   },
   {
-    "Path":       "C:\\Partages\\Commun",
-    "ShareName":  "Commun",
-    "SubFolders": [ "Formulaires", "Procedures" ],
-    "ACLs": [
-      { "Group": "Domain Users",  "Rights": "ReadAndExecute" },
-      { "Group": "GRP_IT",        "Rights": "Modify" },
-      { "Group": "Domain Admins", "Rights": "FullControl" }
+    "Path": "C:\\Partages\\Commun",
+    "ShareName": "Commun",
+    "Description": "Partage commun",
+    "SubFolders": [
+      "Formulaires",
+      "Procedures"
     ],
-    "BrokenInheritance": null
+    "DisableRootInheritance": false,
+    "_risk": "Heritage NTFS de C:\\ conserve (BUILTIN\\Users peut creer des dossiers)",
+    "ACLs": [
+      {
+        "Group": "Domain Users",
+        "Rights": "ReadAndExecute"
+      },
+      {
+        "Group": "GRP_IT",
+        "Rights": "Modify"
+      },
+      {
+        "Group": "Domain Admins",
+        "Rights": "FullControl"
+      }
+    ],
+    "BrokenInheritance": null,
+    "SharePermissions": null,
+    "ABE": false,
+    "Dfs": {
+      "Folder": "Commun"
+    }
   }
 ]

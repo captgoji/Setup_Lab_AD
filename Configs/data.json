@@ -1,0 +1,25 @@
+{
+  "_comment": "Donnees de test generees dans les partages de shares.json. SizeMB = taille cible du partage (le script complete jusqu'a cette taille, sans regenerer l'existant). Contenu aleatoire : les extensions ne sont que des noms, les fichiers ne s'ouvrent pas. Desactiver un partage : \"Apply\": false. Sauter toute la generation : .\\Setup_Lab_AD.ps1 -SkipData",
+  "Enabled": true,
+  "MinFileSizeMB": 1,
+  "MaxFileSizeMB": 5,
+  "MaxAgeDays": 1095,
+  "MinFreeSpaceGB": 5,
+  "Shares": [
+    { "Share": "RH",           "SizeMB": 512,  "YearFolders": false,
+      "Names": [ "Contrat", "Avenant", "Fiche_de_paie", "Entretien_annuel", "Arret_maladie", "Mutuelle", "Registre_personnel" ],
+      "Extensions": [ ".docx", ".pdf", ".xlsx" ] },
+    { "Share": "Comptabilite", "SizeMB": 1024, "YearFolders": true,
+      "Names": [ "Facture", "Avoir", "Bilan", "Releve_bancaire", "Note_de_frais", "Budget", "Grand_livre", "Declaration_TVA" ],
+      "Extensions": [ ".xlsx", ".pdf", ".csv" ] },
+    { "Share": "IT",           "SizeMB": 768,  "YearFolders": false,
+      "Names": [ "Inventaire", "Procedure", "Export_logs", "Sauvegarde_config", "Schema_reseau", "Script_deploiement" ],
+      "Extensions": [ ".txt", ".log", ".xlsx", ".pdf", ".zip" ] },
+    { "Share": "Direction",    "SizeMB": 512,  "YearFolders": true,
+      "Names": [ "Compte_rendu_CODIR", "Strategie", "Rapport_activite", "Previsionnel", "Presentation_CA" ],
+      "Extensions": [ ".pptx", ".docx", ".pdf", ".xlsx" ] },
+    { "Share": "Commun",       "SizeMB": 1280, "YearFolders": false,
+      "Names": [ "Formulaire", "Procedure", "Note_de_service", "Planning", "Annuaire", "Charte" ],
+      "Extensions": [ ".docx", ".pdf", ".xlsx", ".txt" ] }
+  ]
+}

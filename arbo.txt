@@ -1,0 +1,36 @@
+Setup_Lab_V3\
+├─ Setup_Lab_AD.ps1                             ← orchestrateur (VM vierge ou DC existant)
+├─ README.md
+├─ Configs\
+│   ├─ GPO_config.json                          ← config import / liaison des GPO
+│   ├─ audit_logging.json                       ← journalisation non native (auditpol, SACL, PowerShell...)
+│   ├─ data.json                                ← donnees de test des partages
+│   ├─ dfs.json                                 ← namespace DFS
+│   ├─ drives.json                              ← lecteurs réseau (GPP Drive Maps)
+│   ├─ tier0.json                                ← PSO et silos d'authentification
+│   ├─ groups.json                              ← groupes AD
+│   ├─ ous.json                                 ← arborescence des OU ({ROOT} = OU racine)
+│   ├─ services.json                            ← services à déployer
+│   ├─ shares.json                              ← partages SMB / NTFS / dossiers DFS
+│   ├─ tasks.json                               ← tâches planifiées
+│   ├─ users_service.json                       ← comptes de service
+│   ├─ users_standard.json                      ← comptes utilisateurs standards
+│   ├─ users_t0.json                            ← comptes Tier 0
+│   └─ GPO\                                     ← sauvegardes GPO (Backup-GPO)
+│       ├─ manifest.xml                         ← manifeste des sauvegardes
+│       ├─ {GUID}\                              ← structure commune à chaque GPO
+│       └─ ...
+├─ Modules\
+│   ├─ Common.psm1                              ← logs, configs, jetons, résolution SID, stats
+│   ├─ ADStructure.psm1                         ← création des OU et groupes
+│   ├─ Users.psm1                               ← création des comptes
+│   ├─ Shares.psm1                              ← dossiers NTFS + partages SMB (classiques et cibles DFS)
+│   ├─ Data.psm1                                ← generation de donnees dans les partages
+│   ├─ Dfs.psm1                                 ← namespace DFS et visibilité ABE
+│   ├─ Drives.psm1                              ← lecteurs réseau par GPO
+│   ├─ Tier0.psm1                                ← PSO et silos d'authentification
+│   ├─ Services.psm1                            ← services et tâches planifiées
+│   ├─ GPO.psm1                                 ← import et liaison des GPO
+│   ├─ Logging.psm1                             ← journalisation avancée (auditpol, SACL, Sysmon...)
+│   └─ Sysmon\                                  ← (optionnel) Sysmon64.exe + sysmonconfig.xml
+└─ Logs\                                        ← transcripts copiés en fin d'exécution

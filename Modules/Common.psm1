@@ -1,6 +1,20 @@
 # ==============================================================================
+# SetupLab-Version: 2.2
 # Common.psm1 - Utilitaires partages
 # ==============================================================================
+
+# Compteurs crees / existants / alertes (affiches dans le resume final)
+$script:SetupStats = [ordered]@{}
+
+# Principaux bien connus (SID fixes, independants de la langue de l'OS)
+$script:WellKnownSIDs = @{
+    "Everyone"            = "S-1-1-0"
+    "Authenticated Users" = "S-1-5-11"
+    "SYSTEM"              = "S-1-5-18"
+    "Local Service"       = "S-1-5-19"
+    "Network Service"     = "S-1-5-20"
+    "CREATOR OWNER"       = "S-1-3-0"
+}
 
 function Write-Log {
     param([string]$Message, [string]$Color = "White")
@@ -16,12 +30,59 @@ function Read-Config {
     $raw | ConvertFrom-Json | Where-Object { $_ -ne $null -and $_.PSObject.Properties.Count -gt 0 }
 }
 
+# ------------------------------------------------------------------------------
+# Statistiques
+# ------------------------------------------------------------------------------
+
+function Add-SetupStat {
+    param(
+        [string]$Category,
+        [ValidateSet("Created","Existing","Warning")][string]$Result
+    )
+    if (-not $script:SetupStats.Contains($Category)) {
+        $script:SetupStats[$Category] = [ordered]@{ Created = 0; Existing = 0; Warning = 0 }
+    }
+    $script:SetupStats[$Category][$Result]++
+}
+
+function Get-SetupStats { return $script:SetupStats }
+
+# ------------------------------------------------------------------------------
+# Jetons et DN
+# ------------------------------------------------------------------------------
+
+function Resolve-LabToken {
+    # {ROOT}   -> nom de l'OU racine du lab
+    # {DOMAIN} -> DN du domaine (DC=...,DC=...)
+    param([string]$Value, [string]$RootOU, [string]$DomainDN)
+    if (-not $Value) { return $Value }
+    if ($RootOU)   { $Value = $Value.Replace('{ROOT}',   $RootOU) }
+    if ($DomainDN) { $Value = $Value.Replace('{DOMAIN}', $DomainDN) }
+    return $Value
+}
+
 function Resolve-OUDN {
-    param([string]$ParentChain, [string]$DomainDN)
+    param([string]$ParentChain, [string]$DomainDN, [string]$RootOU)
     if (-not $ParentChain -or $ParentChain -eq "") { return $DomainDN }
-    $parts = $ParentChain -split "," | ForEach-Object { "OU=$_" }
+    $chain = Resolve-LabToken -Value $ParentChain -RootOU $RootOU
+    $parts = $chain -split "," | ForEach-Object { "OU=$($_.Trim())" }
     return ($parts -join ",") + ",$DomainDN"
 }
+
+function Test-ExpectedLocation {
+    # Signale un objet qui existe deja mais ailleurs que prevu (cas du domaine existant)
+    param([string]$DistinguishedName, [string]$ExpectedParentDN, [string]$Label)
+    $parent = ($DistinguishedName -split '(?<!\\),', 2)[1]
+    if ($parent -ne $ExpectedParentDN) {
+        Write-Log "  ~ $Label existe deja hors emplacement attendu : $DistinguishedName" "Yellow"
+        return $false
+    }
+    return $true
+}
+
+# ------------------------------------------------------------------------------
+# Resolution des groupes / comptes (independante de la langue)
+# ------------------------------------------------------------------------------
 
 function Get-BuiltinGroup {
     param([string]$GroupName)
@@ -64,20 +125,36 @@ function Get-BuiltinGroup {
 }
 
 function Get-GroupSID {
+    # Accepte : principal bien connu (Everyone, Authenticated Users...), groupe
+    # builtin/domaine (nom anglais), groupe ou compte du domaine
     param([string]$GroupName, [string]$DomainNetbios)
+
+    if ($script:WellKnownSIDs.ContainsKey($GroupName)) {
+        return New-Object System.Security.Principal.SecurityIdentifier($script:WellKnownSIDs[$GroupName])
+    }
+
     $resolvedName = Get-BuiltinGroup -GroupName $GroupName
+    $group = Get-ADGroup -Filter "SamAccountName -eq '$resolvedName'" -ErrorAction SilentlyContinue
+    if ($group) { return [System.Security.Principal.SecurityIdentifier]$group.SID }
+
     try {
-        $group = Get-ADGroup -Filter "SamAccountName -eq '$resolvedName'" -ErrorAction Stop
-        return [System.Security.Principal.SecurityIdentifier]$group.SID
+        $ntAccount = New-Object System.Security.Principal.NTAccount("$DomainNetbios\$resolvedName")
+        return $ntAccount.Translate([System.Security.Principal.SecurityIdentifier])
     } catch {
-        try {
-            $ntAccount = New-Object System.Security.Principal.NTAccount("$DomainNetbios\$resolvedName")
-            return $ntAccount.Translate([System.Security.Principal.SecurityIdentifier])
-        } catch {
-            Write-Log "  ! Impossible de resoudre le SID pour : $GroupName" "Yellow"
-            return $null
-        }
+        Write-Log "  ! Impossible de resoudre le SID pour : $GroupName" "Yellow"
+        return $null
     }
 }
 
-Export-ModuleMember -Function Write-Log, Read-Config, Resolve-OUDN, Get-BuiltinGroup, Get-GroupSID
+function Resolve-AccountName {
+    # Retourne le nom NT localise (ex : "NETOPTIMA\Admins du domaine", "Tout le monde")
+    param([string]$Name, [string]$DomainNetbios)
+    $sid = Get-GroupSID -GroupName $Name -DomainNetbios $DomainNetbios
+    if (-not $sid) { return $null }
+    try   { return $sid.Translate([System.Security.Principal.NTAccount]).Value }
+    catch { Write-Log "  ! Traduction SID -> nom impossible : $Name" "Yellow"; return $null }
+}
+
+Export-ModuleMember -Function Write-Log, Read-Config, Add-SetupStat, Get-SetupStats, `
+    Resolve-LabToken, Resolve-OUDN, Test-ExpectedLocation, `
+    Get-BuiltinGroup, Get-GroupSID, Resolve-AccountName

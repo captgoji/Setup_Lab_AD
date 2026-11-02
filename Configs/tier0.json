@@ -1,0 +1,67 @@
+{
+  "_comment": "PSO (strategies de mot de passe affinees) et silos d'authentification. Les silos protegent les comptes T0 contre le vol d'identifiants. MinPasswordAge/MaxPasswordAge/Lockout* au format TimeSpan 'jours.heures:minutes:secondes'. Membres builtin (Domain Admins...) resolus par SID.",
+  "Enabled": true,
+
+  "PSOs": [
+    {
+      "Name": "PSO_Tier0_Admins",
+      "Description": "Politique renforcee pour les comptes a privileges",
+      "Precedence": 10,
+      "MinPasswordLength": 16,
+      "ComplexityEnabled": true,
+      "PasswordHistoryCount": 24,
+      "ReversibleEncryptionEnabled": false,
+      "MinPasswordAge": "1.00:00:00",
+      "MaxPasswordAge": "60.00:00:00",
+      "LockoutThreshold": 5,
+      "LockoutObservationWindow": "0.00:30:00",
+      "LockoutDuration": "0.00:30:00",
+      "AppliesTo": [ "GRP_Admins_SI", "Domain Admins" ]
+    },
+    {
+      "Name": "PSO_Comptes_Service",
+      "Description": "Mot de passe long non expirant pour les comptes de service",
+      "Precedence": 20,
+      "MinPasswordLength": 30,
+      "ComplexityEnabled": true,
+      "PasswordHistoryCount": 5,
+      "ReversibleEncryptionEnabled": false,
+      "MinPasswordAge": "0.00:00:00",
+      "MaxPasswordAge": "0.00:00:00",
+      "LockoutThreshold": 0,
+      "LockoutObservationWindow": "0.00:30:00",
+      "LockoutDuration": "0.00:30:00",
+      "AppliesTo": [ "GRP_Admins_Domaine" ],
+      "_risk": "MaxPasswordAge = 0 (jamais expire) et pas de verrouillage - faible pour des comptes a privileges"
+    },
+    {
+      "Name": "PSO_VPN_Faible",
+      "Description": "Politique heritee d'un ancien projet VPN",
+      "Precedence": 50,
+      "MinPasswordLength": 6,
+      "ComplexityEnabled": false,
+      "PasswordHistoryCount": 0,
+      "ReversibleEncryptionEnabled": true,
+      "MinPasswordAge": "0.00:00:00",
+      "MaxPasswordAge": "0.00:00:00",
+      "LockoutThreshold": 0,
+      "LockoutObservationWindow": "0.00:30:00",
+      "LockoutDuration": "0.00:30:00",
+      "AppliesTo": [ "GRP_VPN" ],
+      "_risk": "6 caracteres, sans complexite, chiffrement reversible actif - PSO volontairement dangereuse"
+    }
+  ],
+
+  "Silos": [
+    {
+      "Name": "Silo_Tier0",
+      "Description": "Silo d'authentification des comptes Tier 0",
+      "PolicyName": "Silo_Tier0_Policy",
+      "Enforce": false,
+      "UserTGTLifetimeMins": 240,
+      "AllowedToAuthenticateFromGroup": "GRP_Admins_SI",
+      "Members": [ "adm_dupont", "adm_martin", "adm_backup" ],
+      "_risk": "svc_deploy (Domain Admins) n'est PAS dans le silo : compte T0 non protege"
+    }
+  ]
+}
